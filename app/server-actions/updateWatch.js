@@ -1,7 +1,6 @@
 "use server";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
+import supabase from "../utils/supabase";
 
 export default async function updateWatch(formData) {
   const id = formData.get("id");
@@ -9,8 +8,6 @@ export default async function updateWatch(formData) {
   const brand = formData.get("brand");
   const referenceNumber = formData.get("referenceNumber");
 
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
   const {
     data: { session },
   } = await supabase.auth.getSession();

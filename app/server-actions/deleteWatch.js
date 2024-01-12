@@ -1,13 +1,10 @@
 "use server";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
+import supabase from "../utils/supabase";
 
 export default async function deleteWatch(formData) {
   const watchId = formData.get("id");
 
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
   const {
     data: { session },
   } = await supabase.auth.getSession();
